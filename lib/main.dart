@@ -95,16 +95,31 @@ class Home extends StatelessWidget {
       ),
       body: Center(
         child: Container(
+          margin: EdgeInsets.all(10),
           child: Column(
             children: [
               TextField(
                 controller: nameController,
+                decoration: InputDecoration(
+                  labelText: 'Name:',
+                  border: OutlineInputBorder(),
+                ),
               ),
+              SizedBox(height: 5,),
               TextField(
                 controller: ageController,
+                decoration: InputDecoration(
+                  labelText: 'Age:',
+                  border: OutlineInputBorder(),
+                ),
               ),
+              SizedBox(height: 5,),
               TextField(
                 controller: emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email:',
+                  border: OutlineInputBorder(),
+                ),
               ),
               ElevatedButton(
                   onPressed: () {
@@ -118,7 +133,7 @@ class Home extends StatelessWidget {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Display()));
                 },
-                child: Text('Display'),
+                child: Text('Display Data'),
               ),
 
               // ElevatedButton(
