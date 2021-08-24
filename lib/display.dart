@@ -28,7 +28,12 @@ class Display extends StatelessWidget {
                   leading: Icon(Icons.person),
                   title: Text(data['name']),
                   subtitle: Text(data['email']),
-                  trailing: Text(data['age']),
+                  trailing: IconButton(
+                    onPressed: () {
+                      //delete
+                    },
+                    icon: Icon(Icons.delete),
+                  ),
                 );
               }).toList(),
             );
