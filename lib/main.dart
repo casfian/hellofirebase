@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hellofirebase/display.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,10 +80,7 @@ class Home extends StatelessWidget {
       await firestore
           .collection('users')
           .doc()
-          .set({'name': name, 
-          'age': age, 
-          'email': email
-          });
+          .set({'name': name, 'age': age, 'email': email});
       print('add user');
     } catch (e) {
       print(e);
@@ -110,27 +108,35 @@ class Home extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: () {
-                    _create(nameController.text, ageController.text, emailController.text);
+                    _create(nameController.text, ageController.text,
+                        emailController.text);
                   },
                   child: Text('Create New data')),
 
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Display()));
+                },
+                child: Text('Display'),
+              ),
 
-              ElevatedButton(
-                onPressed: _createUser,
-                child: Text('Create'),
-              ),
-              ElevatedButton(
-                onPressed: _read,
-                child: Text('Read'),
-              ),
-              ElevatedButton(
-                onPressed: _updateUser,
-                child: Text('Update'),
-              ),
-              ElevatedButton(
-                onPressed: _delete,
-                child: Text('Delete'),
-              ),
+              // ElevatedButton(
+              //   onPressed: _createUser,
+              //   child: Text('Create'),
+              // ),
+              // ElevatedButton(
+              //   onPressed: _read,
+              //   child: Text('Read'),
+              // ),
+              // ElevatedButton(
+              //   onPressed: _updateUser,
+              //   child: Text('Update'),
+              // ),
+              // ElevatedButton(
+              //   onPressed: _delete,
+              //   child: Text('Delete'),
+              // ),
             ],
           ),
         ),
