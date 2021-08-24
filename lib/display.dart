@@ -25,6 +25,7 @@ class Display extends StatelessWidget {
                 Map<String, dynamic> data =
                     document.data() as Map<String, dynamic>;
                 return ListTile(
+                  leading: Icon(Icons.person),
                   title: Text(data['name']),
                   subtitle: Text(data['email']),
                   trailing: Text(data['age']),
