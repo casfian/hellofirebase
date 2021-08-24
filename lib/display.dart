@@ -15,17 +15,7 @@ class Display extends StatelessWidget {
     }
   }
 
-  //update
-  void updateUser(String docID, String name, String age, String email) async {
-    try {
-      await firestore
-          .collection('users')
-          .doc(docID)
-          .update({'age': age, 'name': name, 'email': email});
-    } catch (e) {
-      print(e);
-    }
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +47,7 @@ class Display extends StatelessWidget {
                   trailing: IconButton(
                     onPressed: () {
                       //pergi page Update
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePage()  ) );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePage(pass: document.id)  ) );
                     },
                     icon: Icon(Icons.edit),
                   ),
