@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hellofirebase/updatepage.dart';
 
 class Display extends StatelessWidget {
   //instance of Firestore
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  //delete
   void delete(String docID) async {
     try {
       await firestore.collection('users').doc(docID).delete();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  //update
+  void updateUser(String docID, String name, String age, String email) async {
+    try {
+      await firestore
+          .collection('users')
+          .doc(docID)
+          .update({'age': age, 'name': name, 'email': email});
     } catch (e) {
       print(e);
     }
@@ -42,10 +56,10 @@ class Display extends StatelessWidget {
                   subtitle: Text(data['email']),
                   trailing: IconButton(
                     onPressed: () {
-                      //delete
-                      delete(document.id);
+                      //pergi page Update
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePage()  ) );
                     },
-                    icon: Icon(Icons.delete),
+                    icon: Icon(Icons.edit),
                   ),
                 );
               }).toList(),
