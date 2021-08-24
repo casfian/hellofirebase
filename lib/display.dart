@@ -2,6 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Display extends StatelessWidget {
+  //instance of Firestore
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  void delete(String docID) async {
+    try {
+      await firestore.collection('users').doc(docID).delete();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +38,12 @@ class Display extends StatelessWidget {
                 return ListTile(
                   leading: Icon(Icons.person),
                   title: Text(data['name']),
+                  //subtitle: Text(document.id.toString()),
                   subtitle: Text(data['email']),
                   trailing: IconButton(
                     onPressed: () {
                       //delete
+                      delete(document.id);
                     },
                     icon: Icon(Icons.delete),
                   ),
