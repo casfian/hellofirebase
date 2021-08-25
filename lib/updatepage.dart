@@ -7,6 +7,8 @@ class UpdatePage extends StatefulWidget {
 
   final User pass; //tukar ke User
 
+  
+
   @override
   _UpdatePageState createState() => _UpdatePageState();
 }
@@ -75,6 +77,7 @@ class _UpdatePageState extends State<UpdatePage> {
               ),
               ElevatedButton(
                 onPressed: () {
+                  //tambah code ne utk update data
                   updateUser(widget.pass.docID, nameController.text,
                       ageController.text, emailController.text);
                   Navigator.pop(context);
