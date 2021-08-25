@@ -16,28 +16,33 @@ class AuthenticationProvider {
   //KITA AKAN BUAT 3 FUNCTIONS: SignUp, SignIn, SignOut
   //
   //1. SignUp
-  Future signUp({required String email, required String password}) async {
+  Future<String?> signUp(
+      {required String email, required String password}) async {
     try {
       await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
+      return 'Dah Register';
     } on FirebaseAuthException catch (e) {
       print(e);
+      return e.message;
     }
   }
 
   //2. SignIn
-  Future signIn({required String email, required String password}) async {
+  Future<String?> signIn(
+      {required String email, required String password}) async {
     try {
       await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      return 'Dah Login';
     } on FirebaseAuthException catch (e) {
       print(e);
+      return e.message;
     }
   }
 
   //3. SignOut
-  Future signOut() async {
+  Future<void> signOut() async {
     await firebaseAuth.signOut();
   }
-  
 }

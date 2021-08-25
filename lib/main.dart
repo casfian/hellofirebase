@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hellofirebase/display.dart';
+import 'package:hellofirebase/login.dart';
+import 'authentication.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,10 +16,36 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material App',
-      home: Home(),
+    return MultiProvider(
+      providers: [
+        Provider<AuthenticationProvider>(
+          create: (_) => AuthenticationProvider(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context) => context.read<AuthenticationProvider>().authState,
+          initialData: null,
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Material App',
+        home: Authenticate(),
+      ),
     );
+  }
+}
+
+//class ne utk check dia dah login atau tak
+class Authenticate extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
+
+    // kalau user ada (user bukan kosong aka null) maka maksudnya dah login
+    if (firebaseUser != null) {
+      return Home(); //dan kita suruh dia gi page Home
+    }
+    // kalau tak suruh dia login
+    return Login();
   }
 }
 
@@ -105,7 +135,9 @@ class Home extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 5,),
+              SizedBox(
+                height: 5,
+              ),
               TextField(
                 controller: ageController,
                 decoration: InputDecoration(
@@ -113,7 +145,9 @@ class Home extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 5,),
+              SizedBox(
+                height: 5,
+              ),
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
@@ -134,6 +168,13 @@ class Home extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => Display()));
                 },
                 child: Text('Display Data'),
+              ),
+
+              ElevatedButton(
+                onPressed: () {
+                  context.read<AuthenticationProvider>().signOut();
+                },
+                child: Text('Logout!'),
               ),
 
               // ElevatedButton(
