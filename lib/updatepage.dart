@@ -43,7 +43,9 @@ class _UpdatePageState extends State<UpdatePage> {
           margin: EdgeInsets.all(10),
           child: Column(
             children: [
-              Text('docID : ${widget.pass.docID}'),
+
+              Text('docID : ${widget.pass.docID}'), //tambah code ne
+
               TextField(
                 controller: nameController,
                 decoration: InputDecoration(
