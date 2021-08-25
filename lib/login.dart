@@ -48,7 +48,7 @@ class Login extends StatelessWidget {
                       context.read<AuthenticationProvider>().signIn(
                           email: emailController.text,
                           password: passwordController.text);
-                      Navigator.pop(context);
+                      
                     },
                     child: Text('Login')),
               ),
