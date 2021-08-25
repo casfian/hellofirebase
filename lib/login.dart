@@ -14,52 +14,55 @@ class Login extends StatelessWidget {
       appBar: AppBar(
         title: Text('Login'),
       ),
-      body: Container(
-        margin: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Text('Selamat Datang. Sila Register dulu, Baru Login'),
-            SizedBox(height: 20,),
-            Image.network('http://3.bp.blogspot.com/-XDgd6SAzXv4/TmyGaFgy87I/AAAAAAAAAa4/uz3lxjvkQFk/s640/836454644.jpg'),
-            SizedBox(height: 20,),
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                labelText: 'Email:',
-                border: OutlineInputBorder(),
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Text('Selamat Datang. Sila Register dulu, Baru Login'),
+              SizedBox(height: 20,),
+              Image.network('http://3.bp.blogspot.com/-XDgd6SAzXv4/TmyGaFgy87I/AAAAAAAAAa4/uz3lxjvkQFk/s640/836454644.jpg'),
+              SizedBox(height: 20,),
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email:',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            SizedBox(height: 20,),
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password:',
-                border: OutlineInputBorder(),
+              SizedBox(height: 20,),
+              TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Password:',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            SizedBox(
-              width: 300,
-              child: ElevatedButton(
-                  onPressed: () {
-                    //signIn function sini
-                    context.read<AuthenticationProvider>().signIn(
-                        email: emailController.text,
-                        password: passwordController.text);
-                    Navigator.pop(context);
-                  },
-                  child: Text('Login')),
-            ),
-            SizedBox(
-              width: 300,
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Register()));
-                  },
-                  child: Text('Register')),
-            ),
-          ],
+              SizedBox(height: 20,),
+              SizedBox(
+                width: 300,
+                child: ElevatedButton(
+                    onPressed: () {
+                      //signIn function sini
+                      context.read<AuthenticationProvider>().signIn(
+                          email: emailController.text,
+                          password: passwordController.text);
+                      Navigator.pop(context);
+                    },
+                    child: Text('Login')),
+              ),
+              SizedBox(
+                width: 300,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Register()));
+                    },
+                    child: Text('Register')),
+              ),
+            ],
+          ),
         ),
       ),
     );
