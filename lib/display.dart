@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hellofirebase/updatepage.dart';
+import 'package:hellofirebase/user.dart';
+
 
 class Display extends StatelessWidget {
   //instance of Firestore
@@ -14,8 +16,6 @@ class Display extends StatelessWidget {
       print(e);
     }
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,12 @@ class Display extends StatelessWidget {
                   trailing: IconButton(
                     onPressed: () {
                       //pergi page Update
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePage(pass: document.id)  ) );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UpdatePage(
+                                  pass: User(document.id, data['name'],
+                                      data['age'], data['email'])  )));
                     },
                     icon: Icon(Icons.edit),
                   ),
