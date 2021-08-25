@@ -18,6 +18,8 @@ class Login extends StatelessWidget {
         margin: EdgeInsets.all(20),
         child: Column(
           children: [
+            Text('Selamat Datang. Sila Register dulu, Baru Login'),
+            SizedBox(height: 20,),
             TextField(
               controller: emailController,
               decoration: InputDecoration(
@@ -25,6 +27,7 @@ class Login extends StatelessWidget {
                 border: OutlineInputBorder(),
               ),
             ),
+            SizedBox(height: 20,),
             TextField(
               controller: passwordController,
               obscureText: true,

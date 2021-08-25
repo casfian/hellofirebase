@@ -13,32 +13,36 @@ class Register extends StatelessWidget {
       appBar: AppBar(
         title: Text('Register'),
       ),
-      body: Column(
-        children: [
-          TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              labelText: 'Email:',
-              border: OutlineInputBorder(),
+      body: Container(
+        margin: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                labelText: 'Email:',
+                border: OutlineInputBorder(),
+              ),
             ),
-          ),
-          TextField(
-            controller: passwordController,
-            decoration: InputDecoration(
-              labelText: 'Password:',
-              border: OutlineInputBorder(),
+            SizedBox(height: 20,),
+            TextField(
+              controller: passwordController,
+              decoration: InputDecoration(
+                labelText: 'Password:',
+                border: OutlineInputBorder(),
+              ),
             ),
-          ),
-          ElevatedButton(
-              onPressed: () {
-                //signUp function sini
-                context.read<AuthenticationProvider>().signUp(
-                    email: emailController.text,
-                    password: passwordController.text);
-                Navigator.pop(context);
-              },
-              child: Text('Register')),
-        ],
+            ElevatedButton(
+                onPressed: () {
+                  //signUp function sini
+                  context.read<AuthenticationProvider>().signUp(
+                      email: emailController.text,
+                      password: passwordController.text);
+                  Navigator.pop(context);
+                },
+                child: Text('Register')),
+          ],
+        ),
       ),
     );
   }
