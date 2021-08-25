@@ -124,6 +124,25 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: Text('CRUD Demo'),
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              title: Text('Home'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Logout'),
+              onTap: () {
+                context.read<AuthenticationProvider>().signOut();
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
       body: Center(
         child: Container(
           margin: EdgeInsets.all(10),
