@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hellofirebase/user.dart'; //import user class
+import 'package:hellofirebase/model/user.dart'; //import user class
 
 class UpdatePage extends StatefulWidget {
   UpdatePage({Key? key, required this.pass}) : super(key: key);

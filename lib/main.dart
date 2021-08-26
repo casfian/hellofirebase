@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hellofirebase/display.dart';
 import 'package:hellofirebase/login.dart';
+import 'package:hellofirebase/profile.dart';
+import 'package:hellofirebase/senaraiproduct.dart';
 import 'authentication.dart';
 import 'package:provider/provider.dart';
 
@@ -131,6 +133,20 @@ class Home extends StatelessWidget {
               title: Text('Home'),
               onTap: () {
                 Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Profile'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Profile()));
+              },
+            ),
+            ListTile(
+              title: Text('Senarai Product'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SenaraiProduct()));
               },
             ),
             ListTile(

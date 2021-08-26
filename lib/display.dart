@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hellofirebase/updatepage.dart';
-import 'package:hellofirebase/user.dart';
+import 'package:hellofirebase/model/user.dart';
 
 
 class Display extends StatelessWidget {
