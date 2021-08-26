@@ -44,7 +44,7 @@ class SenaraiProduct extends StatelessWidget {
                 Map<String, dynamic> data =
                     document.data() as Map<String, dynamic>;
                 return ListTile(
-                  leading: Text(data['photo']),
+                  leading: Image.network(data['photo']),
                   title: Text(data['nama']),
                   //subtitle: Text(document.id.toString()),
                   subtitle: Text('RM${data['harga']}'),

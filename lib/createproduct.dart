@@ -14,9 +14,7 @@ class CreateProduct extends StatefulWidget {
 }
 
 class _CreateProductState extends State<CreateProduct> {
-  final namaController = TextEditingController();
-  final hargaController = TextEditingController();
-  final photoController = TextEditingController();
+  
 
   var created;
 
@@ -38,12 +36,7 @@ class _CreateProductState extends State<CreateProduct> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    //Authentication provider variable
-    //ne kegunaan Provider, blh passing parameter
-    final firebaseUser = context.read<User?>();
-
+  //buat instance utk guna
     final firebaseStorage = FirebaseStorage.instance;
 
     var imageUrl;
@@ -58,7 +51,7 @@ class _CreateProductState extends State<CreateProduct> {
       //Select Image
       pickedImage = await _imagePicker.pickImage(source: ImageSource.camera);
 
-      //2. dah dapat gambar save kat firebase storage
+      //2. dah dapat gambar URL save kat firebase storage
       var file = File(pickedImage.path);
 
       if (pickedImage != null) {
@@ -69,6 +62,8 @@ class _CreateProductState extends State<CreateProduct> {
 
         //ne utk dapat kan url gambar save kat firebase storage
         var downloadUrl = await snapshot.ref.getDownloadURL();
+
+        print(downloadUrl);
 
         //guna setstate supaya update screen
         setState(() {
@@ -81,16 +76,26 @@ class _CreateProductState extends State<CreateProduct> {
       }
     }
 
+  @override
+  Widget build(BuildContext context) {
+    //Authentication provider variable
+    //ne kegunaan Provider, blh passing parameter
+    final firebaseUser = context.read<User?>();
+
+    final namaController = TextEditingController();
+  final hargaController = TextEditingController();
+  TextEditingController  photoController = TextEditingController()..text = imageUrl;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Create product'),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.all(20),
           child: Column(
             children: [
-              Text(firebaseUser!.uid.toString()),
+              Text(imageUrl.toString()),
               SizedBox(
                 height: 20,
               ),
@@ -98,7 +103,11 @@ class _CreateProductState extends State<CreateProduct> {
                 children: [
                   //Kalau imageUrl tak kosong maka papar gambar
                   //kalau kosong papar placeholder url
-                  (imageUrl != null) ? Image.network(imageUrl!): Image.network('https://i.imgur.com/sUFH1Aq.png'),
+                  Container(
+                    child: (imageUrl != null)
+                        ? Image.network(imageUrl!)
+                        : Image.network('https://i.imgur.com/sUFH1Aq.png'),
+                  ),
                   ElevatedButton(
                       onPressed: () {
                         //code
@@ -143,7 +152,7 @@ class _CreateProductState extends State<CreateProduct> {
               ElevatedButton(
                   onPressed: () {
                     print('I click');
-                    created = firebaseUser.uid.toString();
+                    created = firebaseUser!.uid.toString();
                     createProduct(namaController.text, hargaController.text,
                         photoController.text, created);
                   },

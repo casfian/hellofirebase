@@ -52,12 +52,15 @@ class Authenticate extends StatelessWidget {
   }
 }
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   //1. buat instance of Firestore
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  //2. Create function Create.
-  //   note: private function kita guna "_"
   void _createUser() async {
     try {
       await firestore
@@ -70,7 +73,6 @@ class Home extends StatelessWidget {
     }
   }
 
-  //3. Update data
   void _updateUser() async {
     try {
       await firestore
@@ -82,7 +84,6 @@ class Home extends StatelessWidget {
     }
   }
 
-  //4. Read data
   void _read() async {
     DocumentSnapshot documentSnapshot;
     try {
@@ -94,7 +95,6 @@ class Home extends StatelessWidget {
     }
   }
 
-  //5. Delete data
   void _delete() async {
     try {
       await firestore.collection('users').doc('testuser').delete();
@@ -103,9 +103,10 @@ class Home extends StatelessWidget {
     }
   }
 
-  //define  controller variables
   TextEditingController nameController = TextEditingController();
+
   TextEditingController ageController = TextEditingController();
+
   TextEditingController emailController = TextEditingController();
 
   void _create(String name, String age, String email) async {
