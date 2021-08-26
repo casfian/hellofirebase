@@ -14,8 +14,6 @@ class CreateProduct extends StatefulWidget {
 }
 
 class _CreateProductState extends State<CreateProduct> {
-  
-
   var created;
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -37,44 +35,44 @@ class _CreateProductState extends State<CreateProduct> {
   }
 
   //buat instance utk guna
-    final firebaseStorage = FirebaseStorage.instance;
+  final firebaseStorage = FirebaseStorage.instance;
 
-    var imageUrl;
+  var imageUrl;
 
-    //create 1 function utk upload gambar
-    void uploadPhoto() async {
-      //1. buka Picker utk guna camera
-      //declare variable utk picker
-      final _imagePicker = ImagePicker();
-      var pickedImage;
+  //create 1 function utk upload gambar
+  void uploadPhoto() async {
+    //1. buka Picker utk guna camera
+    //declare variable utk picker
+    final _imagePicker = ImagePicker();
+    var pickedImage;
 
-      //Select Image
-      pickedImage = await _imagePicker.pickImage(source: ImageSource.camera);
+    //Select Image
+    pickedImage = await _imagePicker.pickImage(source: ImageSource.camera);
 
-      //2. dah dapat gambar URL save kat firebase storage
-      var file = File(pickedImage.path);
+    //2. dah dapat gambar URL save kat firebase storage
+    var file = File(pickedImage.path);
 
-      if (pickedImage != null) {
-        //3. jgn lupa ambil url gambar dan save kat firebase database
-        //Upload to Firebase Storage
-        var snapshot =
-            await firebaseStorage.ref().child('productpix').putFile(file);
+    if (pickedImage != null) {
+      //3. jgn lupa ambil url gambar dan save kat firebase database
+      //Upload to Firebase Storage
+      var snapshot =
+          await firebaseStorage.ref().child('productpix').putFile(file);
 
-        //ne utk dapat kan url gambar save kat firebase storage
-        var downloadUrl = await snapshot.ref.getDownloadURL();
+      //ne utk dapat kan url gambar save kat firebase storage
+      var downloadUrl = await snapshot.ref.getDownloadURL();
 
-        print(downloadUrl);
+      print(downloadUrl);
 
-        //guna setstate supaya update screen
-        setState(() {
-          imageUrl = downloadUrl;
-        });
+      //guna setstate supaya update screen
+      setState(() {
+        imageUrl = downloadUrl;
+      });
 
-        print('done Picker and uploaded to firebase');
-      } else {
-        print('No Image Path Received');
-      }
+      print('done Picker and uploaded to firebase');
+    } else {
+      print('No Image Path Received');
     }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,8 +81,7 @@ class _CreateProductState extends State<CreateProduct> {
     final firebaseUser = context.read<User?>();
 
     final namaController = TextEditingController();
-  final hargaController = TextEditingController();
-  TextEditingController  photoController = TextEditingController()..text = imageUrl;
+    final hargaController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -95,7 +92,7 @@ class _CreateProductState extends State<CreateProduct> {
           margin: EdgeInsets.all(20),
           child: Column(
             children: [
-              Text(imageUrl.toString()),
+              // Text(imageUrl.toString()),
               SizedBox(
                 height: 20,
               ),
@@ -139,13 +136,13 @@ class _CreateProductState extends State<CreateProduct> {
               SizedBox(
                 height: 20,
               ),
-              TextField(
-                controller: photoController,
-                decoration: InputDecoration(
-                  labelText: 'Photo:',
-                  border: OutlineInputBorder(),
-                ),
-              ),
+              // TextField(
+              //   controller: photoController,
+              //   decoration: InputDecoration(
+              //     labelText: 'Photo:',
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
               SizedBox(
                 height: 20,
               ),
@@ -154,7 +151,7 @@ class _CreateProductState extends State<CreateProduct> {
                     print('I click');
                     created = firebaseUser!.uid.toString();
                     createProduct(namaController.text, hargaController.text,
-                        photoController.text, created);
+                        imageUrl, created);
                   },
                   child: Text('Create product')),
             ],
