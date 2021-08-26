@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hellofirebase/model/product.dart';
 import 'package:provider/provider.dart';
@@ -10,9 +11,31 @@ class CreateProduct extends StatelessWidget {
   final photoController = TextEditingController();
   var created;
 
-  void createProduct(String nama, String harga, String photo, String created) {
+  //1. buat instance of Firestore
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+
+  Future<void> createProduct(String nama, String harga, String photo, String created) async {
+    
+    //step 1: Create Product
     Product(nama, harga, photo, created);
-    print('Ok dah Create 1 product baru');
+    print(Product(nama, harga, photo, created));
+
+    //step 2: Guna Firebase dan save
+    try {
+      await firestore
+          .collection('products')
+          .doc()
+          .set({'nama': nama, 
+          'harga': harga, 
+          'photo': photo, 
+          'created': created});
+      print('add product to firebase database');
+    } catch (e) {
+      print(e);
+    }
+
+
   }
 
   @override
@@ -31,7 +54,9 @@ class CreateProduct extends StatelessWidget {
           child: Column(
             children: [
               Text(firebaseUser!.uid.toString()),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               TextField(
                 controller: namaController,
                 decoration: InputDecoration(
@@ -39,7 +64,9 @@ class CreateProduct extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               TextField(
                 controller: hargaController,
                 decoration: InputDecoration(
@@ -47,7 +74,9 @@ class CreateProduct extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               TextField(
                 controller: photoController,
                 decoration: InputDecoration(
@@ -55,9 +84,13 @@ class CreateProduct extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
                   onPressed: () {
+                    print('I click');
+                    created = firebaseUser.uid.toString();
                     createProduct(namaController.text, hargaController.text,
                         photoController.text, created);
                   },
